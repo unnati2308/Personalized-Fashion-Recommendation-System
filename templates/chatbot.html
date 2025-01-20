@@ -1,0 +1,131 @@
+<!-- templates/chatbot.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interface</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #802cdc, #2575fc);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .chatbot-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .chatbot-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            border: 2px solid #6a11cb;
+        }
+
+        .next-button {
+            background: #6a11cb;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .next-button:hover {
+            background: #2575fc;
+        }
+    </style>
+    <script>
+        function updateOutfitOptions() {
+            var gender = document.getElementById("gender").value;
+            var outfitSelect = document.getElementById("outfit");
+            outfitSelect.innerHTML = "";
+
+            var maleOptions = ['Shirts', 'Tshirts', 'Kurtas', 'Jackets', 'Track Pants', 'Tracksuits', 'Sweatshirts'];
+            var femaleOptions = ['Kurta Sets', 'Waistcoat', 'Tracksuits', 'Sweatshirts', 'Tops', 'Trousers', 'Shorts', 'Sarees', 'Jumpsuit', 'Patiala', 'Clothing Set', 'Dresses', 'Skirts', 'Sweaters', 'Tunics', 'Capris', 'Leggings', 'Jeans', 'Dupatta', 'Tracksuits', 'Kurtis', 'Lehenga Choli', 'Salwar and Dupatta'];
+
+            var options = (gender === "male") ? maleOptions : femaleOptions;
+            options.forEach(function(option) {
+                var opt = document.createElement("option");
+                opt.value = option;
+                opt.textContent = option;
+                outfitSelect.appendChild(opt);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="chatbot-container">
+        <h2>Choose Your Preferences</h2>
+        <form action="/upload" method="POST">
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" onchange="updateOutfitOptions()" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="occasion">Occasion:</label>
+                <select id="occasion" name="occasion" required>
+                    <option value="">Select Occasion</option>
+                    <option value="casual">Casual</option>
+                    <option value="ethnic">Ethnic</option>
+                    <option value="formal">Formal</option>
+                    <option value="sports">Sports</option>
+                    <option value="party">Party</option>
+                    <option value="travel">Travel</option>
+                    <option value="smart casual">Smart Casual</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="outfit">Outfit:</label>
+                <select id="outfit" name="outfit" required>
+                    <option value="">Select Outfit</option>
+                </select>
+            </div>
+            <button type="submit" class="next-button">Next</button>
+        </form>
+    </div>
+</body>
+</html>
